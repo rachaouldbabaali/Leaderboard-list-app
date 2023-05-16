@@ -21,7 +21,7 @@
 - [📝 License](#license)
 
 
-# 📖 To-do List <a name="about-project"></a>
+# 📖 Leaderboard list app <a name="about-project"></a>
 
 **Leaderboard list app** The leaderboard website displays scores submitted by different players. It also allows you to submit your score. All data is preserved thanks to the external Leaderboard API service.
 
