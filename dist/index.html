@@ -7,11 +7,17 @@
     <title>Leaderboard list app</title>
 <script defer src="bundle.js"></script></head>
 <body>
-    <div class="todo-list">
-        <h2>Leaderboard list </h2>
-        
-
-    </div>
+    <div class="container">
+        <h1>Leaderboard List App</h1>
+        <form id="add-form">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required>
+          <label for="score">Score:</label>
+          <input type="number" id="score" name="score" required>
+          <button type="submit">Add</button>
+        </form>
+        <ol id="leaderboard-list"></ol>
+      </div>
     
 </body>
 </html>
