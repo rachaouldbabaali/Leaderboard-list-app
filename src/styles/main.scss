@@ -7,7 +7,6 @@ body {
 }
 
 .container {
-  max-width: 600px;
   margin: 0 auto;
   padding: 20px;
   background-color: #fff;
@@ -16,7 +15,38 @@ body {
 }
 
 h1 {
-  text-align: center;
+  text-align: left;
+}
+
+#add-form {
+  max-width: 600px;
+  margin: 20px;
+}
+
+#list {
+  max-width: 800px;
+}
+
+#app {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-around;
+  min-height: 100vh;
+}
+
+#list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#refresh {
+  cursor: pointer;
+  margin-left: 30px;
+}
+
+#add-score-header {
+  padding-left: 10px;
 }
 
 form label {
@@ -30,26 +60,26 @@ form input[type="number"] {
   padding: 10px;
   margin-bottom: 20px;
   border-radius: 5px;
-  border: none;
+  border: #0f0f0f 2px solid;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 form button {
-  display: block;
-  width: 100%;
+  width: 60%;
   padding: 10px;
-  margin-top: 20px;
-  background-color: $primary-color;
-  color: #fff;
-  border: none;
+  margin: 0 auto;
+  color: #0f0f0f;
+  border: #0f0f0f 2px solid;
   border-radius: 5px;
   cursor: pointer;
 }
 
 ol {
+  min-width: 400px;
   margin-top: 30px;
   padding-left: 0;
   list-style-type: none;
+  border: #0f0f0f 2px solid;
 }
 
 li {

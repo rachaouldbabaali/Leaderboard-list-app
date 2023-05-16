@@ -9,14 +9,25 @@
 <body>
     <div class="container">
         <h1>Leaderboard List App</h1>
-        <form id="add-form">
-          <label for="name">Name:</label>
-          <input type="text" id="name" name="name" required>
-          <label for="score">Score:</label>
-          <input type="number" id="score" name="score" required>
-          <button type="submit">Add</button>
-        </form>
-        <ol id="leaderboard-list"></ol>
+        <div id="app">
+            <div>
+                <h2 id="add-score-header">Add Your Score</h2>
+                <form id="add-form">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                    <label for="score">Score:</label>
+                    <input type="number" id="score" name="score" required>
+                    <button type="submit">Add</button>
+                </form>
+            </div>
+            <div id="list">
+                <div id="list-header">
+                    <h2>Recent Scores</h2>
+                    <button id="refresh"> Refresh </button>
+                </div>
+                <ol id="leaderboard-list"></ol>
+            </div>
+        </div>
       </div>
     
 </body>
