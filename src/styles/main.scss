@@ -104,4 +104,12 @@ li {
     font-size: 20px;
     font-weight: bold;
   }
+
+  &:nth-child(odd) {
+    background-color: #f2f2f2;
+  }
+
+  &:nth-child(even) {
+    background-color: #d4d1d1;
+  }
 }
