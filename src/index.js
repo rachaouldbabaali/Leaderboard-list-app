@@ -1,7 +1,8 @@
+import './styles/main.scss';
+
 const leaderboardList = document.getElementById('leaderboard-list');
 const addForm = document.getElementById('add-form');
-// eslint-disable-next-line prefer-const
-let scores = [];
+const scores = [];
 
 function addScoreToList(name, score) {
   scores.push({ name, score });
