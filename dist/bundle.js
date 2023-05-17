@@ -558,42 +558,11 @@ var leaderboardList = document.getElementById('leaderboard-list');
 var addForm = document.getElementById('add-form');
 var refreshButton = document.getElementById('refresh');
 var apiUrl = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api';
-var gameId = null;
+var gameId = 'BZOBbq7krFiVh3VZMibM';
 var scores = [];
-function createGame(_x) {
-  return _createGame.apply(this, arguments);
-}
-function _createGame() {
-  _createGame = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(name) {
-    var response, data;
-    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-      while (1) switch (_context3.prev = _context3.next) {
-        case 0:
-          _context3.next = 2;
-          return fetch("".concat(apiUrl, "/games"), {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              name: name
-            })
-          });
-        case 2:
-          response = _context3.sent;
-          _context3.next = 5;
-          return response.json();
-        case 5:
-          data = _context3.sent;
-          gameId = data.result;
-        case 7:
-        case "end":
-          return _context3.stop();
-      }
-    }, _callee3);
-  }));
-  return _createGame.apply(this, arguments);
-}
+
+// Create a new game with the name "My Game" just one time to get the gameId
+// and then use it to add scores and get the leaderboard.
 function renderScores() {
   leaderboardList.innerHTML = '';
   scores.forEach(function (score, index) {
@@ -610,7 +579,46 @@ function getScores() {
   return _getScores.apply(this, arguments);
 }
 function _getScores() {
-  _getScores = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+  _getScores = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+    var response, data;
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) switch (_context3.prev = _context3.next) {
+        case 0:
+          if (gameId) {
+            _context3.next = 2;
+            break;
+          }
+          return _context3.abrupt("return");
+        case 2:
+          _context3.next = 4;
+          return fetch("".concat(apiUrl, "/games/").concat(gameId, "/scores"));
+        case 4:
+          response = _context3.sent;
+          _context3.next = 7;
+          return response.json();
+        case 7:
+          data = _context3.sent;
+          scores.length = 0;
+          data.result.forEach(function (score) {
+            scores.push({
+              user: score.user,
+              score: score.score
+            });
+          });
+          renderScores();
+        case 11:
+        case "end":
+          return _context3.stop();
+      }
+    }, _callee3);
+  }));
+  return _getScores.apply(this, arguments);
+}
+function addScore(_x, _x2) {
+  return _addScore.apply(this, arguments);
+}
+function _addScore() {
+  _addScore = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(name, score) {
     var response, data;
     return _regeneratorRuntime().wrap(function _callee4$(_context4) {
       while (1) switch (_context4.prev = _context4.next) {
@@ -622,45 +630,6 @@ function _getScores() {
           return _context4.abrupt("return");
         case 2:
           _context4.next = 4;
-          return fetch("".concat(apiUrl, "/games/").concat(gameId, "/scores"));
-        case 4:
-          response = _context4.sent;
-          _context4.next = 7;
-          return response.json();
-        case 7:
-          data = _context4.sent;
-          scores.length = 0;
-          data.result.forEach(function (score) {
-            scores.push({
-              user: score.user,
-              score: score.score
-            });
-          });
-          renderScores();
-        case 11:
-        case "end":
-          return _context4.stop();
-      }
-    }, _callee4);
-  }));
-  return _getScores.apply(this, arguments);
-}
-function addScore(_x2, _x3) {
-  return _addScore.apply(this, arguments);
-}
-function _addScore() {
-  _addScore = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(name, score) {
-    var response, data;
-    return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-      while (1) switch (_context5.prev = _context5.next) {
-        case 0:
-          if (gameId) {
-            _context5.next = 2;
-            break;
-          }
-          return _context5.abrupt("return");
-        case 2:
-          _context5.next = 4;
           return fetch("".concat(apiUrl, "/games/").concat(gameId, "/scores"), {
             method: 'POST',
             headers: {
@@ -672,11 +641,11 @@ function _addScore() {
             })
           });
         case 4:
-          response = _context5.sent;
-          _context5.next = 7;
+          response = _context4.sent;
+          _context4.next = 7;
           return response.json();
         case 7:
-          data = _context5.sent;
+          data = _context4.sent;
           scores.push({
             user: name,
             score: score
@@ -687,9 +656,9 @@ function _addScore() {
           renderScores();
         case 11:
         case "end":
-          return _context5.stop();
+          return _context4.stop();
       }
-    }, _callee5);
+    }, _callee4);
   }));
   return _addScore.apply(this, arguments);
 }
@@ -712,7 +681,7 @@ addForm.addEventListener('submit', /*#__PURE__*/function () {
       }
     }, _callee);
   }));
-  return function (_x4) {
+  return function (_x3) {
     return _ref.apply(this, arguments);
   };
 }());
@@ -723,16 +692,16 @@ refreshButton.addEventListener('click', /*#__PURE__*/_asyncToGenerator( /*#__PUR
         _context2.next = 2;
         return getScores();
       case 2:
-        console.log(gameId);
-      case 3:
+        scores.sort(function (a, b) {
+          return b.score - a.score;
+        });
+        renderScores();
+      case 4:
       case "end":
         return _context2.stop();
     }
   }, _callee2);
 })));
-
-// Create a new game with the name "My Game"
-createGame('My Game');
 })();
 
 /******/ })()
