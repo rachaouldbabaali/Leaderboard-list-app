@@ -558,7 +558,7 @@ var leaderboardList = document.getElementById('leaderboard-list');
 var addForm = document.getElementById('add-form');
 var refreshButton = document.getElementById('refresh');
 var apiUrl = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api';
-var gameId = 'BZOBbq7krFiVh3VZMibM';
+var gameId = 'p54b5mtGhUUyB50K6Ux1';
 var scores = [];
 
 // Create a new game with the name "My Game" just one time to get the gameId

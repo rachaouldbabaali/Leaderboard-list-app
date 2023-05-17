@@ -5,8 +5,8 @@ const addForm = document.getElementById('add-form');
 const refreshButton = document.getElementById('refresh');
 const apiUrl = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api';
 
-let gameId = 'BZOBbq7krFiVh3VZMibM';
-let scores = [];
+const gameId = 'p54b5mtGhUUyB50K6Ux1';
+const scores = [];
 
 // Create a new game with the name "My Game" just one time to get the gameId
 // and then use it to add scores and get the leaderboard.
@@ -44,11 +44,11 @@ async function addScore(name, score) {
   const response = await fetch(`${apiUrl}/games/${gameId}/scores`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ user: name, score })
+    body: JSON.stringify({ user: name, score }),
   });
-  const data = await response.json();
+  await response.json();
   scores.push({ user: name, score });
   scores.sort((a, b) => b.score - a.score);
   renderScores();
@@ -63,7 +63,6 @@ addForm.addEventListener('submit', async (event) => {
 });
 
 refreshButton.addEventListener('click', async () => {
-  
   await getScores();
   scores.sort((a, b) => b.score - a.score);
   renderScores();
