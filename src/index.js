@@ -2,17 +2,29 @@ import './styles/main.scss';
 
 const leaderboardList = document.getElementById('leaderboard-list');
 const addForm = document.getElementById('add-form');
-const scores = [];
+const refreshButton = document.getElementById('refresh');
+const apiUrl = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api';
 
-function addScoreToList(name, score) {
-  scores.push({ name, score });
-  scores.sort((a, b) => b.score - a.score);
+let gameId = null;
+let scores = [];
 
+async function createGame(name) {
+  const response = await fetch(`${apiUrl}/games`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ name })
+  });
+  const data = await response.json();
+  gameId = data.result;
+}
+
+function renderScores() {
   leaderboardList.innerHTML = '';
-
   scores.forEach((score, index) => {
     const listItem = document.createElement('li');
-    const listItemText = document.createTextNode(`${index + 1}. ${score.name}: `);
+    const listItemText = document.createTextNode(`${index + 1}. ${score.user}: `);
     const listItemScore = document.createElement('span');
     listItemScore.textContent = score.score;
 
@@ -22,10 +34,49 @@ function addScoreToList(name, score) {
   });
 }
 
-addForm.addEventListener('submit', (event) => {
+async function getScores() {
+  if (!gameId) {
+    return;
+  }
+  const response = await fetch(`${apiUrl}/games/${gameId}/scores`);
+  const data = await response.json();
+  scores.length = 0;
+  data.result.forEach((score) => {
+    scores.push({ user: score.user, score: score.score });
+  });
+  renderScores();
+}
+
+async function addScore(name, score) {
+  if (!gameId) {
+    return;
+  }
+  const response = await fetch(`${apiUrl}/games/${gameId}/scores`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ user: name, score })
+  });
+  const data = await response.json();
+  scores.push({ user: name, score });
+  scores.sort((a, b) => b.score - a.score);
+  renderScores();
+}
+
+
+addForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   const name = document.getElementById('name').value;
   const score = document.getElementById('score').value;
-  addScoreToList(name, score);
+  await addScore(name, score);
   addForm.reset();
 });
+
+refreshButton.addEventListener('click', async () => {
+  await getScores();
+  console.log(gameId);
+});
+
+// Create a new game with the name "My Game"
+createGame('My Game');
