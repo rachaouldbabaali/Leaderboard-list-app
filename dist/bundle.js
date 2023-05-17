@@ -563,7 +563,7 @@ var scores = [];
 
 // Create a new game with the name "My Game" just one time to get the gameId
 // and then use it to add scores and get the leaderboard.
-function renderScores() {
+var renderScores = function renderScores() {
   leaderboardList.innerHTML = '';
   scores.forEach(function (score, index) {
     var listItem = document.createElement('li');
@@ -574,30 +574,27 @@ function renderScores() {
     listItem.appendChild(listItemScore);
     leaderboardList.appendChild(listItem);
   });
-}
-function getScores() {
-  return _getScores.apply(this, arguments);
-}
-function _getScores() {
-  _getScores = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+};
+var getScores = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
     var response, data;
-    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-      while (1) switch (_context3.prev = _context3.next) {
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) switch (_context.prev = _context.next) {
         case 0:
           if (gameId) {
-            _context3.next = 2;
+            _context.next = 2;
             break;
           }
-          return _context3.abrupt("return");
+          return _context.abrupt("return");
         case 2:
-          _context3.next = 4;
+          _context.next = 4;
           return fetch("".concat(apiUrl, "/games/").concat(gameId, "/scores"));
         case 4:
-          response = _context3.sent;
-          _context3.next = 7;
+          response = _context.sent;
+          _context.next = 7;
           return response.json();
         case 7:
-          data = _context3.sent;
+          data = _context.sent;
           scores.length = 0;
           data.result.forEach(function (score) {
             scores.push({
@@ -608,28 +605,27 @@ function _getScores() {
           renderScores();
         case 11:
         case "end":
-          return _context3.stop();
+          return _context.stop();
       }
-    }, _callee3);
+    }, _callee);
   }));
-  return _getScores.apply(this, arguments);
-}
-function addScore(_x, _x2) {
-  return _addScore.apply(this, arguments);
-}
-function _addScore() {
-  _addScore = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(name, score) {
-    var response, data;
-    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-      while (1) switch (_context4.prev = _context4.next) {
+  return function getScores() {
+    return _ref.apply(this, arguments);
+  };
+}();
+var addScore = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(name, score) {
+    var response;
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) switch (_context2.prev = _context2.next) {
         case 0:
           if (gameId) {
-            _context4.next = 2;
+            _context2.next = 2;
             break;
           }
-          return _context4.abrupt("return");
+          return _context2.abrupt("return");
         case 2:
-          _context4.next = 4;
+          _context2.next = 4;
           return fetch("".concat(apiUrl, "/games/").concat(gameId, "/scores"), {
             method: 'POST',
             headers: {
@@ -641,11 +637,10 @@ function _addScore() {
             })
           });
         case 4:
-          response = _context4.sent;
-          _context4.next = 7;
+          response = _context2.sent;
+          _context2.next = 7;
           return response.json();
         case 7:
-          data = _context4.sent;
           scores.push({
             user: name,
             score: score
@@ -654,42 +649,44 @@ function _addScore() {
             return b.score - a.score;
           });
           renderScores();
-        case 11:
+        case 10:
         case "end":
-          return _context4.stop();
+          return _context2.stop();
       }
-    }, _callee4);
+    }, _callee2);
   }));
-  return _addScore.apply(this, arguments);
-}
+  return function addScore(_x, _x2) {
+    return _ref2.apply(this, arguments);
+  };
+}();
 addForm.addEventListener('submit', /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(event) {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(event) {
     var name, score;
-    return _regeneratorRuntime().wrap(function _callee$(_context) {
-      while (1) switch (_context.prev = _context.next) {
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) switch (_context3.prev = _context3.next) {
         case 0:
           event.preventDefault();
           name = document.getElementById('name').value;
           score = document.getElementById('score').value;
-          _context.next = 5;
+          _context3.next = 5;
           return addScore(name, score);
         case 5:
           addForm.reset();
         case 6:
         case "end":
-          return _context.stop();
+          return _context3.stop();
       }
-    }, _callee);
+    }, _callee3);
   }));
   return function (_x3) {
-    return _ref.apply(this, arguments);
+    return _ref3.apply(this, arguments);
   };
 }());
-refreshButton.addEventListener('click', /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-  return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-    while (1) switch (_context2.prev = _context2.next) {
+refreshButton.addEventListener('click', /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+  return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+    while (1) switch (_context4.prev = _context4.next) {
       case 0:
-        _context2.next = 2;
+        _context4.next = 2;
         return getScores();
       case 2:
         scores.sort(function (a, b) {
@@ -698,9 +695,9 @@ refreshButton.addEventListener('click', /*#__PURE__*/_asyncToGenerator( /*#__PUR
         renderScores();
       case 4:
       case "end":
-        return _context2.stop();
+        return _context4.stop();
     }
-  }, _callee2);
+  }, _callee4);
 })));
 })();
 

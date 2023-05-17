@@ -10,7 +10,7 @@ const scores = [];
 
 // Create a new game with the name "My Game" just one time to get the gameId
 // and then use it to add scores and get the leaderboard.
-function renderScores() {
+const renderScores = () => {
   leaderboardList.innerHTML = '';
   scores.forEach((score, index) => {
     const listItem = document.createElement('li');
@@ -22,9 +22,9 @@ function renderScores() {
     listItem.appendChild(listItemScore);
     leaderboardList.appendChild(listItem);
   });
-}
+};
 
-async function getScores() {
+const getScores = async () => {
   if (!gameId) {
     return;
   }
@@ -35,9 +35,9 @@ async function getScores() {
     scores.push({ user: score.user, score: score.score });
   });
   renderScores();
-}
+};
 
-async function addScore(name, score) {
+const addScore = async (name, score) => {
   if (!gameId) {
     return;
   }
@@ -52,7 +52,7 @@ async function addScore(name, score) {
   scores.push({ user: name, score });
   scores.sort((a, b) => b.score - a.score);
   renderScores();
-}
+};
 
 addForm.addEventListener('submit', async (event) => {
   event.preventDefault();
