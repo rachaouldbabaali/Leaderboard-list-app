@@ -54,7 +54,7 @@
 
 
 ## 🚀 Live Demo <a name="live-demo"></a>
-(leaderboard-list-ap)[https://rachaouldbabaali.github.io/Leaderboard-list-app/dist/]
+[leaderboard-list-ap](https://rachaouldbabaali.github.io/Leaderboard-list-app/dist/)
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
